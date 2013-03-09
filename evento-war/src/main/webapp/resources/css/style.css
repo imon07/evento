@@ -1,0 +1,145 @@
+body {
+    font-family: Tahoma, serif; font-size: 12px; height: 100%;
+    margin-top: 0px;
+}
+
+.container {
+    width: 1000px; height: 100%; margin-left: auto; margin-right: auto;
+}
+
+/* header */
+.header {
+    border-bottom: 1px #00008b dashed; height: 130px;
+}
+
+.header-left {
+    float: left; display: inline;
+}
+
+.header-logo {
+    float: left; display: inline;
+}
+
+.header-text {
+    float: right; display: inline;  margin-top: 20px;
+}
+
+.header-right {
+    float: right; display: inline; margin-right: 20px; margin-top: 20px;
+}
+
+.header-text {
+    font-size: 48px; color: #00008b;
+}
+
+.header-right-link {
+    text-align: right; margin-top: 10px;
+}
+
+.label {
+    font-size: 16px; font-weight: bold; padding-right: 10px; padding-left: 10px;
+}
+
+.sub-header {
+    font-size: 20px; font-weight: bold; color: #000;
+}
+
+/* content */
+.message-box {
+    position: absolute; width: 500px; height: 50px; margin-left: 400px;
+    margin-top: 50px;
+}
+
+.content {
+    max-height: 30%; padding: 20px; border-bottom: 1px #00008b dashed; float: left;
+}
+
+.content-left {
+   float: left; display: inline; border: 0px #bbb solid; height: 100%; width: 620px;
+   padding: 0px;
+}
+
+.content-left-body {
+    margin-top: 40px;
+}
+
+.content-right {
+    float: right; display: inline; width: 300px; border:
+}
+
+.link {
+    font-size: 14px; color: blue; text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.left {
+    float: left; display: inline;
+}
+
+.right {
+    float: right; display: inline;
+}
+
+.scroll-pane {
+    width: 620px; height: 570px; border: 0px #000 solid; background-color: #fff; float: left;
+}
+
+.portrait {
+    width: 180px; height: 250px; border: 0px #00008b solid;
+}
+
+.colnClass {
+    width: 400px;
+}
+
+/* datalist */
+
+.datalist div{
+    padding-left: 10px; padding-right: 10px;
+}
+
+.datalist-title a {
+    color: #045FB4; text-decoration: none;
+}
+
+.datalist-title a:hover {
+    text-decoration: underline;
+}
+
+.datalist-where {
+    margin-top: 10px;
+}
+
+.datalist-where span {
+    color: #045FB4;
+}
+
+.datalist-when {
+    margin-top: 10px;
+}
+
+.datalist-when span {
+    color: #045FB4;
+}
+
+/* footer */
+.footer {
+    height: 50px; font-size: 14px; font-weight: bold; padding-top: 10px;
+    margin-top: 20px;
+}
+
+.footer-left {
+    float: left; display: inline; padding-left: 10px; padding-top: 20px; padding-bottom: 20px;
+}
+
+.footer-right {
+    float: right; display: inline; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;
+}
+
+/* menu */
+.menu {
+    margin-top: 10px;
+}

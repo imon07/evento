@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Created by IntelliJ IDEA.
+  UserInt: sahmed
+  Date: 1/29/13
+  Time: 11:03 AM
+-->
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:loadBundle var="msg" basename="messages"/>
+
+<h:head>
+    <title>#{msg.index_title}</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-logo"><h:graphicImage alt="logo" url="../resources/img/eicon.jpg" height="100"
+                                                         width="100"/></div>
+                <div class="header-text"><h:outputLabel value="Evento"/></div>
+            </div>
+            <div class="header-right">
+                <c:choose>
+                    <c:when test="#{!empty homeController.user.email}">
+                        <div class="label" style="padding-right: 0px; text-align: right">
+                            Welcome, #{homeController.user.email}
+                        </div>
+                        <div style="text-align: right; margin-top: 10px">
+                            <h:form id="logoutForm">
+                                <h:commandLink styleClass="link" value="Logout"
+                                               action="#{homeController.destroySession}"/>
+                            </h:form>
+                        </div>
+                        <div class="menu">
+                            <p:menubar>
+                                <p:menuitem value="Home" url="/home"/>
+                                <p:menuitem value="Create New Event" url="/event/create"/>
+                                <p:menuitem value="My Events" url="#"/>
+                                <p:menuitem value="My Profile" url="#"/>
+                                <p:menuitem value="My Contacts" url="#"/>
+                            </p:menubar>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <h:form id="loginForm">
+                                <h:outputLabel styleClass="label" value="Email" for="email"/>
+                                <p:inputText id="email" value="#{loginController.user.email}"/>
+                                <h:outputLabel styleClass="label" value="Password" for="password"/>
+                                <p:password id="password" value="#{loginController.user.password}"/>
+                                <p:commandButton id="logIn" action="#{loginController.logIn}" value="Log In"
+                                                 style="margin-left: 10px"/>
+                            </h:form>
+                        </div>
+                        <div class="header-right-link">
+                            <h:form id="forgotPassForm">
+                                <h:commandLink styleClass="link" value="Forgot Password ?"/>
+                            </h:form>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-left">
+                <div class="content-left-header">
+                    <div class="sub-header left">
+                        Search Result: #{searchController.searchListSize}
+                    </div>
+                </div>
+                <div class="content-left-body">
+                    <c:choose>
+                        <c:when test="#{!empty searchController.searchList}">
+                            <p:dataList styleClass="datalist" value="#{searchController.searchList}" var="searchList"
+                                        paginator="true" rows="4" effectSpeed="fast"
+                                        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="5,10,15" type="none">
+                                <br/>
+
+                                <div class="datalist-title">
+                                    <h:link styleClass="sub-header" value="#{searchList.title}"
+                                            outcome="event_page.xhtml">
+                                        <f:param name="eventId" value="#{searchList.id}"/>
+                                    </h:link>
+                                </div>
+                                <div class="datalist-where"><b><span>Where:</span> </b><br/><h:outputText
+                                        value="#{searchList.address}"/></div>
+                                <div class="datalist-when"><b><span>When:</span> </b> <h:outputText
+                                        value="#{searchList.date}"/></div>
+                                <br/>
+                                <p:separator/>
+                            </p:dataList>
+                        </c:when>
+                        <c:otherwise>
+                            <div style="font-size: 14px;text-align: center">
+                                There Are No Events To Display
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="content-right" style="margin-left:20px;margin-top: 40px">
+                <div style="float: right">
+                    <c:choose>
+                        <c:when test="#{empty homeController.user.email}">
+                            <h:link styleClass="link" outcome="/index" value="Return Home"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:link styleClass="link" outcome="/home" value="Return Home"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div style="margin-top: 30px;">
+                    <h:form id="search">
+                        <p:panel header="Search Events">
+                            <p:messages autoUpdate="true"/>
+                            <h:panelGrid columns="2" id="matchGrid">
+                                <h:outputLabel for="eventName" value="Event Name"/>
+                                <p:inputText id="eventName" value="#{searchController.searchTag}" required="true"
+                                             requiredMessage="Name Required"/>
+                            </h:panelGrid>
+                            <p:commandButton id="btnSearch" value="Search" action="#{searchController.search}"/>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-left">
+                2013, Evento
+            </div>
+            <div class="footer-right">
+                An OpenSource Project
+            </div>
+        </div>
+    </div>
+    <h:outputScript library="js" name="script.js"/>
+</h:body>
+
+</html>

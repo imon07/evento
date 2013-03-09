@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Created by IntelliJ IDEA.
+  UserInt: sahmed
+  Date: 1/29/13
+  Time: 11:03 AM
+-->
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:loadBundle var="msg" basename="messages"/>
+
+<h:head>
+    <title>#{msg.event_create_title}</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-logo"><h:graphicImage alt="logo" url="../resources/img/eicon.jpg" height="100" width="100"/></div>
+                <div class="header-text"><h:outputLabel value="Evento"/></div>
+            </div>
+            <div class="header-right">
+                <div class="label" style="padding-right: 0px; text-align: right">
+                    Welcome, #{eventCreateController.user.email}
+                </div>
+                <div style="text-align: right; margin-top: 10px">
+                    <h:form id="logoutForm">
+                        <h:commandLink styleClass="link" value="Logout" action="#{homeController.destroySession}"/>
+                    </h:form>
+                </div>
+                <div class="menu">
+                    <p:menubar>
+                        <p:menuitem value="Home" url="/home"/>
+                        <p:menuitem value="Create New Event" url="/event/create"/>
+                        <p:menuitem value="My Events" url="#"/>
+                        <p:menuitem value="My Profile" url="#"/>
+                        <p:menuitem value="My Contacts" url="#"/>
+                    </p:menubar>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+              <div class="sub-header">
+                Events | Create
+              </div>
+              <div class="left" style="margin-top: 20px">
+                <div class="portrait">
+                    <p:graphicImage url="../resources/img/noimage.jpg" alt="portrait" height="250" width="180"/>
+                </div>
+                <div>
+
+                </div>
+              </div>
+              <div class="right" style="margin-left:15px;margin-top: 20px">
+                <h:form id="eventForm">
+                    <p:messages id="messages" autoUpdate="true"/>
+                    <p:panelGrid columns="2" id="eventPanel">
+                        <h:outputLabel value="Title * "/>
+                        <p:inputText value="#{eventCreateController.event.title}" required="true" id="name" requiredMessage="Event Name Required" size="50"/>
+                        <h:outputLabel value="Venue * "/>
+                        <p:inputText value="#{eventCreateController.event.venue}" required="true" id="venue" requiredMessage="Venue Required" size="50"/>
+                        <h:outputLabel value="Address * "/>
+                        <p:inputTextarea value="#{eventCreateController.event.address}" id="address" required="true" requiredMessage="Address Required" cols="38"/>
+                        <h:outputLabel value="Date *"/>
+                        <p:calendar value="#{eventCreateController.event.date}" id="date" size="50"/>
+                        <h:outputLabel value="Time *"/>
+                        <p:panelGrid columns="3" id="timePanel">
+                            <p:selectOneMenu value="#{eventCreateController.event.hour}" id="hour">
+                                <f:selectItem itemLabel="Hour" itemValue="0" itemDisabled="true"/>
+                                <f:selectItem itemLabel="1" itemValue="1"/>
+                                <f:selectItem itemLabel="2" itemValue="2"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{eventCreateController.event.min}" id="min">
+                                <f:selectItem itemLabel="Min" itemValue="0" itemDisabled="true"/>
+                                <f:selectItem itemLabel="1" itemValue="1"/>
+                                <f:selectItem itemLabel="2" itemValue="2"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{eventCreateController.event.period}" id="period">
+                                <f:selectItem itemLabel="AM" itemValue="AM"/>
+                                <f:selectItem itemLabel="PM" itemValue="PM"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:outputLabel value="Description *"/>
+                        <p:editor id="editor" value="#{eventCreateController.event.description}" width="600"/>
+                        <h:outputLabel value="Ticket Number *"/>
+                        <p:inputText value="#{eventCreateController.event.ticketCount}" id="ticketCount" required="true" requiredMessage="Ticket Count Required" size="50"/>
+                        <h:outputLabel value="Ticket Category *"/>
+                        <p:selectOneMenu value="#{eventCreateController.event.ticketCategory}" id="category">
+                            <f:selectItem itemLabel="Free" itemValue="1"/>
+                            <f:selectItem itemLabel="Paid" itemValue="2"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Ticket Expiry Date *"/>
+                        <p:calendar value="#{eventCreateController.event.ticketExpiryDate}" id="ticketExpdate" size="50"/>
+                    </p:panelGrid>
+                    <p:commandButton action="#{eventCreateController.createEvent}" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Create Event"/>
+                </h:form>
+              </div>
+        </div>
+        <div class="footer">
+            <div class="footer-left">
+                2013, Evento
+            </div>
+            <div class="footer-right">
+                An OpenSource Project
+            </div>
+        </div>
+    </div>
+    <h:outputScript library="js" name="script.js"/>
+</h:body>
+
+</html>

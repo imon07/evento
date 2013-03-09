@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Created by IntelliJ IDEA.
+  UserInt: sahmed
+  Date: 1/29/13
+  Time: 11:03 AM
+-->
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:loadBundle var="msg" basename="messages"/>
+
+<h:head>
+    <title>#{msg.event_create_title}</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+
+<h:body>
+    <div class="container" style="height: 100%">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-logo"><h:graphicImage alt="logo" url="../../resources/img/eicon.jpg" height="100" width="100"/></div>
+                <div class="header-text"><h:outputLabel value="Evento"/></div>
+            </div>
+            <div class="header-right">
+                <c:choose>
+                    <c:when test="#{!empty homeController.user.email}">
+                        <div class="label" style="padding-right: 0px; text-align: right">
+                            Welcome, #{homeController.user.email}
+                        </div>
+                        <div style="text-align: right; margin-top: 10px">
+                            <h:form id="logoutForm">
+                                <h:commandLink styleClass="link" value="Logout" action="#{homeController.destroySession}"/>
+                            </h:form>
+                        </div>
+                        <div class="menu">
+                            <p:menubar>
+                                <p:menuitem value="Home" url="/home"/>
+                                <p:menuitem value="Create New Event" url="/event/create"/>
+                                <p:menuitem value="My Events" url="#"/>
+                                <p:menuitem value="My Profile" url="#"/>
+                                <p:menuitem value="My Contacts" url="#"/>
+                            </p:menubar>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <h:form id="loginForm">
+                                <h:outputLabel styleClass="label" value="Email" for="email"/>
+                                <p:inputText id="email" value="#{loginController.user.email}"/>
+                                <h:outputLabel styleClass="label" value="Password" for="password"/>
+                                <p:password id="password" value="#{loginController.user.password}"/>
+                                <p:commandButton id="logIn" action="#{loginController.logIn}" value="Log In" style="margin-left: 10px"/>
+                            </h:form>
+                        </div>
+                        <div class="header-right-link">
+                            <h:form id="forgotPassForm">
+                                <h:commandLink styleClass="link" value="Forgot Password ?"/>
+                            </h:form>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        <div class="content" style="height: 30%">
+            <div class="sub-header">
+                Events Page
+            </div>
+            <div class="left" style="margin-top: 20px">
+                <div class="portrait">
+                    <p:graphicImage url="../../resources/img/noimage.jpg" alt="portrait" height="250" width="180"/>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="right" style="margin-left:20px;margin-top: 20px">
+                <h:form id="eventForm">
+                    <p:messages id="messages" autoUpdate="true"/>
+                    <p:panelGrid columns="2" id="eventPanel" style="width: 750px;font-size: 16px">
+                        <h:outputLabel value="Title * "/>
+                        <h:outputText value="#{eventPageController.event.title}"/>
+                        <h:outputLabel value="Venue * "/>
+                        <h:outputText value="#{eventPageController.event.venue}"/>
+                        <h:outputLabel value="Address * "/>
+                        <h:outputText escape="false" value="#{eventPageController.event.address}"/>
+                        <h:outputLabel value="Date *"/>
+                        <h:outputText value="#{eventPageController.event.date}"/>
+                        <h:outputLabel value="Time *"/>
+                        <h:outputText value="#{eventPageController.event.hour} : #{eventPageController.event.min} #{eventPageController.event.period}"/>
+                        <h:outputLabel value="Description *"/>
+                        <h:outputText escape="false" value="#{eventPageController.event.description}"/>
+                        <h:outputLabel value="Ticket Number *"/>
+                        <h:outputText value="#{eventPageController.event.ticketCount}"/>
+                        <h:outputLabel value="Ticket Category *"/>
+                        <c:choose>
+                            <c:when test="#{eventPageController.event.ticketCategory == 1}">
+                                <h:outputText value="Free"/>
+                            </c:when>
+                            <c:otherwise>
+                                <h:outputText value="Paid"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <h:outputLabel value="Ticket Expiry Date *"/>
+                        <h:outputText value="#{eventPageController.event.ticketExpiryDate}"/>
+                        <c:set var="isOrganizer" scope="request" value="#{eventPageController.organizer}"/>
+                        <c:choose>
+                            <c:when test="${isOrganizer == 1}">
+                                <c:choose>
+                                    <c:when test="#{eventPageController.event.publish == 1}">
+                                        <h:outputText value="Published: "/>
+                                        <h:outputText style="font-weight: bold" value="Event Has Been Published"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:outputText value="Published: "/>
+                                        <h:outputText style="font-weight: bold" value="Event Not Yet Published"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                        </c:choose>
+                    </p:panelGrid>
+                    <c:choose>
+                        <c:when test="#{!empty homeController.user.email}">
+                            <p:button outcome="home.xthml" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Back"/>
+                            <c:choose>
+                                <c:when test="${isOrganizer == 1}">
+                                    <c:choose>
+                                        <c:when test="#{eventPageController.event.publish == 0}">
+                                            <p:commandButton action="#{eventPageController.publishEvent}" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Publish"/>
+                                        </c:when>
+                                    </c:choose>
+                                    <p:commandButton action="#{eventCreateController.createEvent}" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Edit"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <p:commandButton action="#{eventPageController.joinEvent}" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Join Event"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <p:button outcome="index.xthml" style="float: right; margin-top: 15px; margin-bottom: 5px" value="Back"/>
+                        </c:otherwise>
+                    </c:choose>
+                </h:form>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-left">
+                2013, Evento
+            </div>
+            <div class="footer-right">
+                An OpenSource Project
+            </div>
+        </div>
+    </div>
+    <h:outputScript library="js" name="script.js"/>
+</h:body>
+
+</html>

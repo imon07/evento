@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Created by IntelliJ IDEA.
   User: sahmed
   Date: 2/27/13
   Time: 2:08 PM
 -->
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-<h:head>
-    <title>Simple JSF Facelets page</title>
-</h:head>
+<f:loadBundle var="msg" basename="messages"/>
 
 <h:body>
-    Place your content here
+    <ui:composition>
+        <div class="footer-left">
+            #{msg.footer_left}
+        </div>
+        <div class="footer-right">
+            #{msg.footer_right}
+        </div>
+    </ui:composition>
 </h:body>
 
 </html>

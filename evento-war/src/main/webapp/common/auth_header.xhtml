@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Created by IntelliJ IDEA.
   User: sahmed
   Date: 2/27/13
   Time: 2:07 PM
 -->
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-
-<h:head>
-    <title>Simple JSF Facelets page</title>
-</h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
-    Place your content here
+    <ui:composition>
+        <div class="header-left">
+            <div class="header-logo"><h:graphicImage alt="logo" url="resources/img/eicon.jpg" height="100" width="100"/>
+            </div>
+            <div class="header-text"><h:outputLabel value="Evento"/></div>
+        </div>
+        <div class="header-right">
+            <div class="label" style="padding-right: 0px; text-align: right">
+                Welcome, #{homeController.user.email}
+            </div>
+            <div style="text-align: right; margin-top: 10px">
+                <h:form id="logoutForm">
+                    <h:commandLink styleClass="link" value="Logout" action="#{homeController.destroySession}"/>
+                </h:form>
+            </div>
+            <div class="menu">
+                <p:menubar>
+                    <p:menuitem value="Home" url="/home"/>
+                    <p:menuitem value="Create New Event" url="/event/create"/>
+                    <p:menuitem value="My Events" url="#"/>
+                    <p:menuitem value="My Profile" url="#"/>
+                    <p:menuitem value="My Contacts" url="#"/>
+                </p:menubar>
+            </div>
+        </div>
+    </ui:composition>
 </h:body>
 
 </html>

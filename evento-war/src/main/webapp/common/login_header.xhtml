@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Created by IntelliJ IDEA.
   User: sahmed
@@ -10,16 +11,32 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-<h:head>
-    <title>Simple JSF Facelets page</title>
-</h:head>
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
-    Place your content here
+    <ui:composition>
+        <div class="header-left">
+            <div class="header-logo"><h:graphicImage alt="logo" url="resources/img/eicon.jpg" height="100" width="100"/></div>
+            <div class="header-text"><h:outputLabel value="Evento"/></div>
+        </div>
+        <div class="header-right">
+            <div>
+                <h:form id="loginForm">
+                    <h:outputLabel styleClass="label" value="Email" for="email"/>
+                    <p:inputText id="email" value="#{loginController.user.email}"/>
+                    <h:outputLabel styleClass="label" value="Password" for="password"/>
+                    <p:password id="password" value="#{loginController.user.password}"/>
+                    <p:commandButton id="logIn" action="#{loginController.logIn}" value="Log In" style="margin-left: 10px"/>
+                </h:form>
+            </div>
+            <div class="header-right-link">
+                <h:form id="forgotPassForm">
+                    <h:commandLink styleClass="link" value="Forgot Password ?"/>
+                </h:form>
+            </div>
+        </div>
+    </ui:composition>
 </h:body>
 
 </html>
